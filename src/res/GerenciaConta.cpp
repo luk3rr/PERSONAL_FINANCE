@@ -19,6 +19,10 @@ std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
+    // Carteira
+    if (saldo_inicial < 0) {
+        throw ctrexcp::ValorInvalido(saldo_inicial);
+    }
 
     if (getContas().find(nome) == getContas().end()) {
         std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
@@ -30,8 +34,8 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
     }
 }
 
-void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
-
+void GerenciaConta::adicionarCarteira(double saldo_inicial, std::string nome) {
+    // overload para adicionar CarteiraBancaria
     if (getContas().find(nome) == getContas().end()) {
         std::shared_ptr<CarteiraBancaria> conta = std::make_shared<CarteiraBancaria>(nome, saldo_inicial);
         this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));

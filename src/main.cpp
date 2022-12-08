@@ -84,7 +84,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> saldo_inicial;
 
                 try {
-                    gc.adicionarConta(nome, saldo_inicial);
+                    gc.adicionarCarteira(saldo_inicial, nome);
                     Utils::printColor(Foreground::f_green, "CARTEIRA BANCÁRIA ADICIONADA ✔️");
                 }
                 catch (ctrexcp::ValorInvalido& e) {

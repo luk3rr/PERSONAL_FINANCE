@@ -28,9 +28,11 @@ class GerenciaConta {
 
         std::shared_ptr<Carteira> getConta(std::string nome);
 
+        // Carteira
         void adicionarCarteira(std::string nome, double saldo_inicial);
 
-        void adicionarConta(std::string nome, double saldo_inicial);
+        // overload para adicionar CarteiraBancaria
+        void adicionarCarteira(double saldo_inicial, std::string nome);
 
         void removerConta(std::string nome);
 
