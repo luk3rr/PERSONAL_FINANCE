@@ -52,16 +52,22 @@ void GerenciaConta::removerConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+    std::shared_ptr<Carteira> wallet = getConta(conta);
 
-    Barricada::validar_data(data);
+    wallet->setSaldoAtual(wallet->getSaldoAtual() + valor);
     
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
-    getConta(conta)->adicionarTransacao(receita);
+    wallet->adicionarTransacao(receita);
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
+    std::shared_ptr<Carteira> wallet = getConta(conta);
 
-    Barricada::validar_data(data);
+    if (wallet->getSaldoAtual() < valor) {
+        throw ctrexcp::SaldoInsuficiente(wallet->getSaldoAtual(), valor);
+    }
+    
+    wallet->setSaldoAtual(wallet->getSaldoAtual() - valor);
 
     std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
     getConta(conta)->adicionarTransacao(despesa);

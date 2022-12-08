@@ -21,24 +21,6 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 Carteira::~Carteira() { }
 
 void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
-    double valor = transacao->getValor();
-
-    if(valor < 0) {
-        throw ctrexcp::ValorInvalido(valor);
-    }
-    if (transacao->getSubtipo() == "receita") {
-        setSaldoAtual(getSaldoAtual() + valor); 
-    }
-    else if (transacao->getSubtipo() == "despesa") {
-        /*Se o saldo atual for menor que o valor da transacao nao dá para adicionar a despesa*/
-        if (this->getSaldoAtual() < valor) {
-            throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
-        }
-        else {
-            setSaldoAtual(getSaldoAtual() - valor);
-        }
-    }
-    
     this->_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
         (transacao->getID(), transacao));
 }
