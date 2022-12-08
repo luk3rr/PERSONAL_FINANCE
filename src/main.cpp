@@ -96,6 +96,7 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "SALDO INICIAL: ");
                 std::cin >> saldo_inicial;
+                Barricada::validarValor(saldo_inicial);
 
                 try {
                     gc.adicionarCarteira(saldo_inicial, nome);

@@ -39,8 +39,18 @@ void Barricada::validarValor(double &valor) {
             Utils::printColorNoLine(Foreground::f_yellow, "DIGITE UM VALOR VÁLIDO: ");
             std::cin >> valor;
         }
+        else if (valor == 0) {
+            std::string resposta;
+            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ O VALOR É (OU FOI CONVERTIDO PARA) ZERO.\nDESEJA CONTINUAR ? [s/n]: ");
+            std::cin >> resposta;
+            if (resposta == "s" or resposta == "S") {
+                break;
+            }
+            Utils::printColorNoLine(Foreground::f_yellow, "DIGITE UM NOVO VALOR: ");
+            std::cin >> valor;
+        }
         else {
-            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA. COLOQUE UM VALOR MAIOR QUE ZERO: ");
+            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA. COLOQUE UM VALOR POSITIVO: ");
             std::cin >> valor;
         }
     }
