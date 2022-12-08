@@ -1,7 +1,6 @@
 #include "GerenciaConta.hpp"
 
-
-GerenciaConta::GerenciaConta() { }
+GerenciaConta::GerenciaConta() {}
 
 std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
     return this->_contas;
@@ -73,11 +72,10 @@ void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::strin
     getConta(conta)->adicionarTransacao(despesa);
 }
 
-void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
+void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, 
+                                           std::string categoria) {
 
     if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
-        Barricada::validarData(data);
-
         std::shared_ptr<CarteiraBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
         conta_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
@@ -182,9 +180,6 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
                                     std::string fechamento, double limite_cartao) {
 
     if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
-
-        Barricada::validar_cartao(numero, CVV, fechamento);
-
         std::shared_ptr<CarteiraBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
 

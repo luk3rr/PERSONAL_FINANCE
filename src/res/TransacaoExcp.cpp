@@ -23,7 +23,7 @@ std::string trsexcp::TipoTransacaoInvalido::getTipo() {
 }
 
 const char* trsexcp::TipoTransacaoInvalido::what() const throw() {
-    return "ERRO 🕵️: O tipo da transacao é inválida";
+    return "ERRO 🕵️: O tipo da transação é inválida";
 }
 
 // Metodos para DataInvalida

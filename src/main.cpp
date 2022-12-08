@@ -16,10 +16,24 @@ int main(int argc, char const *argv[]) {
 
     GerenciaConta gc;
 
-    unsigned input, id_transacao;
-    double saldo_inicial, valor_transacao, limite_cartao;
-    std::string nome, conta, data, categoria, cartao, destino, origem, CVV,
-                fechamento, numero_cartao, tipo;
+    unsigned input,
+             id_transacao;
+    
+    double saldo_inicial,
+           valor_transacao,
+           limite_cartao;
+    
+    std::string nome,
+                conta,
+                data,
+                categoria,
+                cartao,
+                destino,
+                origem,
+                CVV,
+                fechamento,
+                numero_cartao,
+                tipo;
 
     Utils::limparConsole();
 
@@ -585,11 +599,12 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME DO CARTÃO: ");
-                std::cin >> cartao;
+                std::cin >> nome;
 
                 try {
-                    gc.removerCartao(conta, cartao);
+                    gc.removerCartao(conta, nome);
                     Utils::printColor(Foreground::f_green, "CARTAO DE CREDITO REMOVIDO ✔️");
                 }
                 catch (ctrexcp::ContaNaoEncontrada &e) {
@@ -620,11 +635,12 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA BANCÁRIA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTÃO: ");
-                std::cin >> cartao;
+                std::cin >> nome;
 
                 try {
-                    gc.pagarFaturaCartao(conta, cartao);
+                    gc.pagarFaturaCartao(conta, nome);
                     Utils::printColor(Foreground::f_green, "FATURA DO CARTAO DE CREDITO PAGA ✔️");
                 }
                 catch (ctrexcp::ContaNaoEncontrada &e) {
@@ -716,11 +732,12 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA BANCÁRIA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTÃO: ");
-                std::cin >> cartao;
+                std::cin >> nome;
 
                 try {
-                    gc.listarDespesasCartao(conta, cartao);
+                    gc.listarDespesasCartao(conta, nome);
                 }
                 catch (ctrexcp::ContaNaoEncontrada &e) {
                     Utils::printColor(Foreground::f_red, e.what());
