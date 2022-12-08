@@ -31,17 +31,14 @@ int main(int argc, char const *argv[]) {
 
         std::cin >> input;
 
-        /*Barricada que irá validar o input para ver se ele é menor que 0 ou maior que 16*/
-        Barricada::validar_input(input);
-
-        Utils::limparConsole();
+        Barricada::validarOpcaoMenu(input);
 
         switch (input) {
-
             case 0: // Listar opcoes
                 Utils::printColor(corSeparador, separador);
                 printMenu();
                 Utils::printColor(corSeparador, separador);
+
                 continue;
 
             case 1: // Adicionar carteira
@@ -50,17 +47,16 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTEIRA: ");
                 std::cin >> nome;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "SALDO INICIAL: ");
                 std::cin >> saldo_inicial;
-
-                /*Barricada que verifica o valor do saldo*/
-                Barricada::validar_saldo(saldo_inicial);
+                Barricada::validarValor(saldo_inicial);
 
                 try {
                     gc.adicionarCarteira(nome, saldo_inicial);
                     Utils::printColor(Foreground::f_green, "CARTEIRA ADICIONADA ✔️");
                 }
-                catch (ctrexcp::ValorInvalido& e) {
+                catch (ctrexcp::ValorInvalido &e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
                     std::cout << e.getValor() << std::endl;
@@ -83,11 +79,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTEIRA: ");
                 std::cin >> nome;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "SALDO INICIAL: ");
                 std::cin >> saldo_inicial;
-
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarConta(nome, saldo_inicial);
@@ -116,13 +110,13 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
-
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_transacao(valor_transacao);
+                Barricada::validarValor(valor_transacao);
 
                 Utils::selecionarData(data);
+                Barricada::validarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
@@ -135,7 +129,6 @@ int main(int argc, char const *argv[]) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
                     std::cout << e.getNome() << std::endl;
-                    std::cout << typeid(e).name() << std::endl;
                 }
                 catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColor(Foreground::f_red, e.what());
@@ -146,7 +139,6 @@ int main(int argc, char const *argv[]) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColor(Foreground::f_red, "DATA: ");
                     std::cout << e.getData() << std::endl;
-                    std::cout << typeid(e).name() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -161,35 +153,31 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
-
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_transacao(valor_transacao);
+                Barricada::validarValor(valor_transacao);
 
                 Utils::selecionarData(data);
+                Barricada::validarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
-
 
                 try {
                     gc.adicionarDespesa(conta, valor_transacao, data, categoria);
                     Utils::printColor(Foreground::f_green, "DESPESA ADICIONADA ✔️");
                 }
-
                 catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
                     std::cout << e.getNome() << std::endl;
                 }
-
                 catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
                     std::cout << e.getValor() << std::endl;
                 }
-
                 catch (ctrexcp::SaldoInsuficiente &e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "DIFERENÇA: ");
@@ -217,14 +205,13 @@ int main(int argc, char const *argv[]) {
                 std::cin >> cartao;
 
                 Utils::selecionarData(data);
+                Barricada::validarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
                 Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
-
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_transacao(valor_transacao);
+                Barricada::validarValor(valor_transacao);
 
                 try {
                     gc.adicionarDespesaCartao(conta, cartao, valor_transacao, data, categoria);
@@ -264,16 +251,18 @@ int main(int argc, char const *argv[]) {
                 Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
 
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_transacao(valor_transacao);
+                Barricada::validarValor(valor_transacao);
                 Utils::selecionarData(data);
+                Barricada::validarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "ORIGEM: ");
                 std::cin >> origem;
                 Utils::printColorNoLine(Efeitos::bold_bright, "DESTINO: ");
                 std::cin >> destino;
+                Barricada::validarOrigemDestino(origem, destino);
 
                 try {
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
@@ -317,19 +306,25 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTÃO: ");
                 std::cin >> nome;
+                
                 Utils::printColorNoLine(Efeitos::bold_bright, "NÚMERO CARTÃO: ");
                 std::cin >> numero_cartao;
+                Barricada::validarNumeroCartao(numero_cartao);
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "CVV CARTÃO: ");
                 std::cin >> CVV;
+                Barricada::validarCvvCartao(CVV);
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "FECHAMENTO CARTÃO: ");
                 std::cin >> fechamento;
+                Barricada::validarFechamentoCartao(fechamento);
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "LIMITE CARTÃO: ");
                 std::cin >> limite_cartao;
-
-                /*Barricada que irá verificar o valor do limite passado*/
-                Barricada::validar_limite_cartao(limite_cartao);
+                Barricada::validarValor(limite_cartao);
 
                 try {
                     gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);
@@ -383,8 +378,8 @@ int main(int argc, char const *argv[]) {
 
             case 8: // Remover carteira
                 Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, 
-                                 "------------ REMOVER CARTEIRA -------------");
+                Utils::printColor(Efeitos::inverse, "------------ REMOVER CARTEIRA -------------");
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME: ");
                 std::cin >> nome;
 
@@ -406,6 +401,7 @@ int main(int argc, char const *argv[]) {
             case 9: // Remover carteira bancária
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "-------------- REMOVER CARTEIRA -----------");
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA BANCÁRIA: ");
                 std::cin >> nome;
 
@@ -431,11 +427,10 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "ID DA TRANSAÇÃO: ");
                 std::cin >> id_transacao;
-
-                /*Barricada que irá verificar a validade do ID passado*/
-                Barricada::validar_id(id_transacao);
+                Barricada::validarID(id_transacao);
 
                 try {
                     gc.removerReceita(conta, id_transacao);
@@ -469,11 +464,10 @@ int main(int argc, char const *argv[]) {
                 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "ID: ");
                 std::cin >> id_transacao;
-
-                /*Barricada que irá verificar a validade do ID passado*/
-                Barricada::validar_id(id_transacao);
+                Barricada::validarID(id_transacao);
 
                 try {
                     gc.removerDespesa(conta, id_transacao);
@@ -507,13 +501,13 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+                
                 Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTAO: ");
                 std::cin >> cartao;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "ID DA TRANSAÇÃO: ");
                 std::cin >> id_transacao;
-
-                /*Barricada que irá verificar a validade do ID passado*/
-                Barricada::validar_id(id_transacao);
+                Barricada::validarID(id_transacao);
 
                 try {
                     gc.removerDespesaCartao(conta, cartao, id_transacao);
@@ -547,11 +541,10 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+
                 Utils::printColorNoLine(Efeitos::bold_bright, "ID DA TRANSAÇÃO: ");
                 std::cin >> id_transacao;
-
-                /*Barricada que irá verificar a validade do ID passado*/
-                Barricada::validar_id(id_transacao);
+                Barricada::validarID(id_transacao);
 
                 try {
                     gc.removerTransferencia(conta, id_transacao);
@@ -690,6 +683,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta;
                 Utils::printColorNoLine(Efeitos::bold_bright, "TIPO (despesa, receita ou transferencia): ");
                 std::cin >> tipo;
+                Barricada::validarTipo(tipo);
 
                 try {
                     gc.listarTransacao(conta, tipo);
@@ -750,8 +744,6 @@ int main(int argc, char const *argv[]) {
         }
         break;
     }
-
-    //Utils::limparConsole();
 
     return 0;
 }

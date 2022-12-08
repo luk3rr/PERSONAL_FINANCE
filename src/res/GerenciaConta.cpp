@@ -76,7 +76,7 @@ void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::strin
 void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
 
     if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
-        Barricada::validar_data(data);
+        Barricada::validarData(data);
 
         std::shared_ptr<CarteiraBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));

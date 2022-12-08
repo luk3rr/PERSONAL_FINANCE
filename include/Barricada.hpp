@@ -15,31 +15,32 @@
 
 class Barricada {
     private:
-        static const std::string NUMERO_CC_VALIDO;
-        static const std::string CVV_VALIDO;
-        static const std::string FECHAMENTO_CC_VALIDO;
-        static const std::string DATA_VALIDA;
+        static const std::string TIPO_VALIDO,
+                                 NUMERO_CC_VALIDO,
+                                 CVV_VALIDO,
+                                 FECHAMENTO_CC_VALIDO,
+                                 DATA_VALIDA;
 
     public:
-        static void validar_saldo(double &saldo);
+        static void validarOpcaoMenu(unsigned &input);
 
-        static void validar_input(unsigned &input);
+        static void validarValor(double &valor);
 
-        static void validar_transacao(double &valor_transacao);
+        static void validarID(unsigned &id);
 
-        static void validar_id(unsigned &id);
+        static void validarLimiteCartao(double &limite);
 
-        static void validar_limite_cartao(double &limite);
+        static void validarNumeroCartao(std::string &numero);
 
-        static bool validar_cartao(std::string numero, std::string CVV,
-                                   std::string fechamento);
+        static void validarCvvCartao(std::string &CVV);
+
+        static void validarFechamentoCartao(std::string &fechamento);
         
-        static bool validar_transferencia(std::string data, std::string origem,
-                                          std::string destino);
+        static void validarOrigemDestino(std::string &origem, std::string &destino);
                                           
-        static bool validar_data(std::string data);
+        static void validarData(std::string &data);
 
-        
+        static void validarTipo(std::string &tipo);
 };
 
 #endif
