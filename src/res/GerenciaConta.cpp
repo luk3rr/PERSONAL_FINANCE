@@ -8,11 +8,10 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
 }
 
 std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
-
+    // A funcao 'find' de um map retorna um ponteiro para map.end se nao houver chave com o mesmo 'nome'
     if (getContas().find(nome) == getContas().end()) {
         throw ctrexcp::ContaNaoEncontrada(nome);
     }
-
     else {
         return getContas().find(nome)->second;
     }
@@ -28,7 +27,6 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
         std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
         this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
     }
-
     else {
         throw ctrexcp::ContaJaExiste(nome);
     }
@@ -46,8 +44,6 @@ void GerenciaConta::adicionarCarteira(double saldo_inicial, std::string nome) {
 }
 
 void GerenciaConta::removerConta(std::string nome) {
-
-    /*A funcao 'find' de um map retorna um ponteiro para map.end se nao encontrar nada*/
     if (this->getContas().find(nome) == this->getContas().end()) {
         throw ctrexcp::ContaNaoEncontrada(nome);
     }
@@ -91,13 +87,13 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
     }
 }
 
-void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::string categoria,   
-                                           std::string origem, std::string destino) {
+void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::string categoria, std::string origem,
+                                           std::string destino) {
+    if (origem == destino) {
+        throw trsexcp::OrigemDestinoIguais(origem);
+    }
 
-    Barricada::validar_transferencia(data, origem, destino);
-
-    std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>
-                                               (valor, data, categoria, origem, destino);
+    std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>(valor, data, categoria, origem, destino);
 
     std::shared_ptr<Carteira> conta_origem = getConta(origem);
     std::shared_ptr<Carteira> conta_destino = getConta(destino);
@@ -252,10 +248,6 @@ void GerenciaConta::imprimirContas() {
 }
 
 void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
-
-    //transforma os caracteres da string em minúsculo
-    //std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
-    
     tipo = (tipo == "d") ? "despesa" 
          : (tipo == "r") ? "receita" 
          : (tipo == "t") ? "transferencia"

@@ -39,15 +39,15 @@ const char* trsexcp::DataInvalida::what() const throw() {
     return "ERRO 🕵️: Data informada não está no padrão dd-mm-aaaa ou é inválida";
 }
 
-// Metodos TransferenciaInvalida
-trsexcp::TransferenciaInvalida::TransferenciaInvalida(std::string nome) {
-    this->_nome_da_conta = nome;
+// Metodos OrigemDestinoIguais
+trsexcp::OrigemDestinoIguais::OrigemDestinoIguais(std::string origem_destino) {
+    this->_origem_destino = origem_destino;
 }
 
-const char* trsexcp::TransferenciaInvalida::what() const throw() {
-    return "ERRO 🕵️: Não é possível realizar uma transferência para uma mesma conta";
+const char* trsexcp::OrigemDestinoIguais::what() const throw() {
+    return "ERRO 🕵️: Não é possível realizar uma transferência para a mesma conta";
 }
 
-std::string trsexcp::TransferenciaInvalida::getNomeConta() {
-    return this->_nome_da_conta;
+std::string trsexcp::OrigemDestinoIguais::getOrigemDestino() {
+    return this->_origem_destino;
 }

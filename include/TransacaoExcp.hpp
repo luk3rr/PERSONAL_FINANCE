@@ -5,7 +5,6 @@
 #include <string>
 
 namespace trsexcp {
-
     class TransacaoNaoEncontrada : public std::exception {
         private:
             int _id;
@@ -42,16 +41,16 @@ namespace trsexcp {
             std::string getData();
     };
 
-    class TransferenciaInvalida : public std::exception {
+    class OrigemDestinoIguais : public std::exception {
         private:
-            std::string _nome_da_conta;
+            std::string _origem_destino;
 
         public:
-            TransferenciaInvalida(std::string);
+            OrigemDestinoIguais(std::string origem_destino);
 
             const char* what() const throw();
 
-            std::string getNomeConta();
+            std::string getOrigemDestino();
     };
 }
 

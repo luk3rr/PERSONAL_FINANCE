@@ -5,7 +5,6 @@
 #include <string>
 
 namespace gcexcp {
-
     class PerfilVazio : public std::exception {
         public:
             PerfilVazio();

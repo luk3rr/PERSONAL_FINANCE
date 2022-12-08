@@ -58,5 +58,4 @@ void Utils::selecionarData(std::string &data) {
         Utils::printColorNoLine(Efeitos::bold_bright, "DIGITE A DATA DESEJADA: ");
         std::cin >> data;
     }
-
 }

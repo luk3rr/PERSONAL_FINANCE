@@ -268,10 +268,10 @@ int main(int argc, char const *argv[]) {
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
                     Utils::printColor(Foreground::f_green, "TRANSFERÊNCIA ADICIONADA ✔️");
                 }
-                catch (trsexcp::TransferenciaInvalida& e) {
+                catch (trsexcp::OrigemDestinoIguais& e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "CONTA ORIGEM IGUAL AO DESTINO: ");
-                    std::cout << e.getNomeConta() << std::endl;
+                    std::cout << e.getOrigemDestino() << std::endl;
                 }
                 catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColor(Foreground::f_red, e.what());
