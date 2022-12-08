@@ -1,5 +1,5 @@
-#ifndef GERENCIA_CONTA_EXCP_H
-#define GERENCIA_CONTA_EXCP_H
+#ifndef GERENCIA_CARTEIRA_EXCP_H
+#define GERENCIA_CARTEIRA_EXCP_H
 
 #include <exception>
 #include <string>

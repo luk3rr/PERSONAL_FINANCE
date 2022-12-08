@@ -1,4 +1,4 @@
-#include "GerenciaConta.hpp"
+#include "GerenciaCarteira.hpp"
 #include "Utils.hpp"
 #include "Barricada.hpp"
 
@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
     const std::string separador = "===========================================";
     const int corSeparador = Foreground::f_yellow;
 
-    GerenciaConta gc;
+    GerenciaCarteira gc;
 
     unsigned input,
              id_transacao;

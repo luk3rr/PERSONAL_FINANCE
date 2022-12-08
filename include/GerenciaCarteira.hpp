@@ -1,5 +1,5 @@
-#ifndef GERENCIA_CONTA_H
-#define GERENCIA_CONTA_H
+#ifndef GERENCIA_CARTEIRA_H
+#define GERENCIA_CARTEIRA_H
 
 #include "Barricada.hpp"
 #include "Transferencia.hpp"
@@ -8,7 +8,7 @@
 #include "Receita.hpp"
 #include "Despesa.hpp"
 #include "CartaoDeCredito.hpp"
-#include "GerenciaContaExcp.hpp"
+#include "GerenciaCarteiraExcp.hpp"
 #include "CarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
 
@@ -17,16 +17,16 @@
 #include <memory>
 #include <map>
 
-class GerenciaConta {
+class GerenciaCarteira {
     private:
-        std::map<std::string, std::shared_ptr<Carteira>> _contas;
+        std::map<std::string, std::shared_ptr<Carteira>> _carteiras;
 
     public:
-        GerenciaConta();
+        GerenciaCarteira();
 
-        std::map<std::string, std::shared_ptr<Carteira>>& getContas();
+        std::map<std::string, std::shared_ptr<Carteira>> &getCarteiras();
 
-        std::shared_ptr<Carteira> getConta(std::string nome);
+        std::shared_ptr<Carteira> getCarteira(std::string nome);
 
         // Carteira
         void adicionarCarteira(std::string nome, double saldo_inicial);
@@ -48,13 +48,13 @@ class GerenciaConta {
         void adicionarTransferencia(double valor, std::string data, std::string categoria,
             std::string origem, std::string destino);
 
-        void removerReceita(std::string conta, int id);
+        void removerReceita(std::string conta, unsigned id);
 
-        void removerDespesa(std::string conta, int id);
+        void removerDespesa(std::string conta, unsigned id);
 
-        void removerDespesaCartao(std::string conta, std::string cartao, int id);
+        void removerDespesaCartao(std::string conta, std::string cartao, unsigned id);
 
-        void removerTransferencia(std::string conta, int id);
+        void removerTransferencia(std::string conta, unsigned id);
 
         void adicionarCartao(std::string conta, std::string nome,
             std::string numero, std::string CVV, std::string fechamento, double limite_cartao);
