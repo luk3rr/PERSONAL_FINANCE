@@ -254,16 +254,22 @@ void GerenciaConta::imprimirContas() {
 void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
 
     //transforma os caracteres da string em minúsculo
-    std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
+    //std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
+    
+    tipo = (tipo == "d") ? "despesa" 
+         : (tipo == "r") ? "receita" 
+         : (tipo == "t") ? "transferencia"
+         : (tipo == "a") ? "todas"
+         : throw trsexcp::TipoTransacaoInvalido(tipo);
 
-    if (tipo == "despesa" || tipo == "receita" || tipo == "transferencia") {
-        std::shared_ptr<Carteira> cart_conta = getConta(conta);
+    std::shared_ptr<Carteira> minha_conta = getConta(conta);
 
-        Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
-        Utils::printColorNoLine(Efeitos::bold_bright, cart_conta->getNome());
+    Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
+    Utils::printColorNoLine(Efeitos::bold_bright, minha_conta->getNome());
 
+    if (tipo == "despesa" or tipo == "receita" or tipo == "transferencia") {
         int i = 0;
-        for (auto const& it : getConta(conta)->getTransacoes()) {
+        for (auto const& it : minha_conta->getTransacoes()) {
             if (it.second->getSubtipo() == tipo) {
                 std::cout << std::endl; 
                 it.second->imprimirInfo();
@@ -276,7 +282,16 @@ void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
             Utils::printColor(Foreground::f_yellow, "Nenhuma " + tipo + " encontrada");
         }
     }
-    else {
-        throw trsexcp::TipoTransacaoInvalido(tipo);
+    else if (tipo == "todas") {
+        int i = 0;
+        for (auto const& it : minha_conta->getTransacoes()) {
+            std::cout << std::endl; 
+            it.second->imprimirInfo();
+            ++i;
+        }
+        if (i == 0) {
+            std::cout << std::endl;
+            Utils::printColor(Foreground::f_yellow, "Nenhuma transação encontrada");
+        }
     }
 }

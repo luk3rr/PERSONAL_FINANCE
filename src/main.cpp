@@ -681,7 +681,12 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA: ");
                 std::cin >> conta;
-                Utils::printColorNoLine(Efeitos::bold_bright, "TIPO (despesa, receita ou transferencia): ");
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "[d] despesa\n \
+                                                               [r] receita\n \
+                                                               [t] transferencia\n \
+                                                               [a] todas\n \
+                                                               TIPO: ");
                 std::cin >> tipo;
                 Barricada::validarTipo(tipo);
 
