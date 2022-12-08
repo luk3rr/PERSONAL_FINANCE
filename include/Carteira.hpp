@@ -31,7 +31,9 @@ class Carteira {
 
         void adicionarTransacao(std::shared_ptr<Transacao> transacao);
 
-        void removerTransacao(int id);
+        void removerReceita(unsigned id);
+
+        void removerDespesa(unsigned id);
 
         std::string getNome();
 
@@ -41,6 +43,7 @@ class Carteira {
 
         std::map<unsigned, std::shared_ptr<Transacao>>& getTransacoes();
 
+        std::shared_ptr<Transacao> getTransacao(unsigned id);
 
         std::string getSubtipo();
 

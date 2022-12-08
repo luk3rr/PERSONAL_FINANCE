@@ -25,19 +25,37 @@ void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
         (transacao->getID(), transacao));
 }
 
-void Carteira::removerTransacao(int id) {
-    std::shared_ptr<Transacao> transacao = getTransacoes().find(id)->second;
+void Carteira::removerReceita(unsigned id) {
+    std::shared_ptr<Transacao> receita = this->getTransacao(id);
+    double valor = receita->getValor();
 
-    double valor = transacao->getValor();
-
-    if (transacao->getSubtipo() == "receita") {
-        setSaldoAtual(getSaldoAtual() - valor); 
+    if (receita->getSubtipo() == "receita") {
+        setSaldoAtual(getSaldoAtual() - valor);
+        this->_transacoes.erase(id);
     }
-    else if (transacao->getSubtipo() == "despesa") {
+    else {
+        throw trsexcp::TipoTransacaoInvalido(receita->getSubtipo());
+    }
+}
+
+void Carteira::removerDespesa(unsigned id) {
+    std::shared_ptr<Transacao> despesa = this->getTransacao(id);
+    double valor = despesa->getValor();
+
+    if (despesa->getSubtipo() == "despesa") {
         setSaldoAtual(getSaldoAtual() + valor);
+        this->_transacoes.erase(id);
     }
+    else {
+        throw trsexcp::TipoTransacaoInvalido(despesa->getSubtipo());
+    }
+}
 
-    this->_transacoes.erase(id);
+std::shared_ptr<Transacao> Carteira::getTransacao(unsigned id) {
+    if (this->getTransacoes().find(id) == this->getTransacoes().end()) {
+        throw trsexcp::TransacaoNaoEncontrada(id);
+    }
+    return this->getTransacoes().find(id)->second;
 }
 
 void Carteira::ultimasTransacoes(unsigned quantidade) {
