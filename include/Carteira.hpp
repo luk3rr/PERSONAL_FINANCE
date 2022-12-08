@@ -17,7 +17,7 @@ class Carteira {
     private:
         std::string _nome;
         double _saldo_atual;
-        std::map<int, std::shared_ptr<Transacao>> _transacoes;
+        std::map<unsigned, std::shared_ptr<Transacao>> _transacoes;
         std::string _subtipo;
 
     public:
@@ -27,7 +27,7 @@ class Carteira {
 
         virtual ~Carteira();
 
-        void ultimasTransacoes(unsigned int quantidade);
+        void ultimasTransacoes(unsigned quantidade);
 
         void adicionarTransacao(std::shared_ptr<Transacao> transacao);
 
@@ -39,7 +39,8 @@ class Carteira {
 
         void setSaldoAtual(double saldo);
 
-        std::map<int, std::shared_ptr<Transacao>>& getTransacoes();
+        std::map<unsigned, std::shared_ptr<Transacao>>& getTransacoes();
+
 
         std::string getSubtipo();
 
