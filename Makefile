@@ -34,7 +34,6 @@ BUILD_FILES = \
 
 TEST_DEPENDENCIES = \
     $(BUILD_DIR)/GerenciaConta.o \
-    $(BUILD_DIR)/Barricada.o \
     $(BUILD_DIR)/Carteira.o \
     $(BUILD_DIR)/CarteiraBancaria.o \
     $(BUILD_DIR)/Receita.o \
@@ -49,7 +48,6 @@ TEST_DEPENDENCIES = \
     $(BUILD_DIR)/CarteiraExcp.o
 
 BUILD_TEST_FILES = \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteBarricada.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
