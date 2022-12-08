@@ -7,8 +7,8 @@
 
 class Transacao {
     private:
-        static int _contador;
-        int _id;
+        static unsigned _contador;
+        unsigned _id;
         double _valor;
         std::string _data, _categoria, _subtipo;
 
@@ -24,7 +24,7 @@ class Transacao {
 
         std::string getSubtipo();
 
-        int getID();
+        unsigned getID();
 
         virtual void imprimirInfo() = 0;
 };

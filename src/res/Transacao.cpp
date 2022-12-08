@@ -1,6 +1,6 @@
 #include "Transacao.hpp"
 
-int Transacao::_contador = 0;
+unsigned Transacao::_contador = 0;
 
 Transacao::Transacao(double valor, std::string data, std::string categoria,
     std::string subtipo) {
@@ -28,6 +28,6 @@ std::string Transacao::getSubtipo() {
     return this->_subtipo;
 }
 
-int Transacao::getID() {
+unsigned Transacao::getID() {
     return this->_id;
 }
