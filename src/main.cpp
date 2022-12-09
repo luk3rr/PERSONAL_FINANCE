@@ -399,7 +399,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> nome;
 
                 try {
-                    gc.removerConta(nome);
+                    gc.removerCarteira(nome);
                     Utils::printColor(Foreground::f_green, "CARTEIRA REMOVIDA ✔️");
                 }
                 catch (ctrexcp::ContaNaoEncontrada& e) {
@@ -421,7 +421,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> nome;
 
                 try {
-                    gc.removerConta(nome);
+                    gc.removerCarteira(nome);
                     Utils::printColor(Foreground::f_green, "CARTEIRA BANCÁRIA REMOVIDA ✔️");
                 }
                 catch (ctrexcp::ContaNaoEncontrada& e) {
@@ -680,7 +680,7 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "------------ LISTAR CARTEIRAS -------------");
 
                 try {
-                    gc.imprimirContas();
+                    gc.imprimirCarteiras();
                 }
                 catch (gcexcp::PerfilVazio &e) {
                     Utils::printColor(Foreground::f_red, e.what());

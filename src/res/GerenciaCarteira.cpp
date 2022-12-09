@@ -42,7 +42,7 @@ void GerenciaCarteira::adicionarCarteira(double saldo_inicial, std::string nome)
     }
 }
 
-void GerenciaCarteira::removerConta(std::string nome) {
+void GerenciaCarteira::removerCarteira(std::string nome) {
     if (this->getCarteiras().find(nome) == this->getCarteiras().end()) {
         throw ctrexcp::ContaNaoEncontrada(nome);
     }
@@ -196,7 +196,7 @@ void GerenciaCarteira::listarDespesasCartao(std::string carteira, std::string ca
     }
 }
 
-void GerenciaCarteira::imprimirContas() {
+void GerenciaCarteira::imprimirCarteiras() {
     if(!(getCarteiras().empty())) {
         for (auto const& carteira : getCarteiras()) {
             carteira.second->imprimirInfo();

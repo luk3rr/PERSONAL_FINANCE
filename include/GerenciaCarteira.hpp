@@ -34,7 +34,7 @@ class GerenciaCarteira {
         // overload para adicionar CarteiraBancaria
         void adicionarCarteira(double saldo_inicial, std::string nome);
 
-        void removerConta(std::string nome);
+        void removerCarteira(std::string nome);
 
         void adicionarReceita(std::string conta, double valor, std::string data,
             std::string categoria);
@@ -65,7 +65,7 @@ class GerenciaCarteira {
 
         void listarDespesasCartao(std::string conta, std::string cartao);
 
-        void imprimirContas();
+        void imprimirCarteiras();
 
         void listarTransacao(std::string conta, std::string tipo);
 
