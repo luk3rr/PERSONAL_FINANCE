@@ -105,7 +105,7 @@ void GerenciaCarteira::removerDespesaCartao(std::string carteira, std::string ca
     if (getCarteira(carteira)->getSubtipo() == "CarteiraBancaria") {
         std::shared_ptr<CarteiraBancaria> carteira_bancaria;
         carteira_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getCarteira(carteira));
-        carteira_bancaria->getCartoes().find(cartao)->second.removerDespesa(id);
+        carteira_bancaria->getCartaoDeCredito(cartao)->removerDespesa(id);
     }
 }
 
@@ -141,9 +141,8 @@ void GerenciaCarteira::removerTransferencia(std::string carteira, unsigned id) {
     carteira_destino->getTransacoes().erase(id);
 }
 
-void GerenciaCarteira::adicionarCartao(std::string carteira, std::string nome,
-                                    std::string numero, std::string CVV,
-                                    std::string fechamento, double limite_cartao) {
+void GerenciaCarteira::adicionarCartao(std::string carteira, std::string nome, std::string numero, std::string CVV,
+                                       std::string fechamento, double limite_cartao) {
 
     if (getCarteira(carteira)->getSubtipo() == "CarteiraBancaria") {
         std::shared_ptr<CarteiraBancaria> carteira_bancaria;

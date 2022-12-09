@@ -27,7 +27,6 @@ std::map<std::string, CartaoDeCredito> &CarteiraBancaria::getCartoes() {
 }
 
 CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
-
     if (getCartoes().find(nome) == getCartoes().end()) {
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
