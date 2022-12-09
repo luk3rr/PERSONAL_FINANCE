@@ -1,7 +1,7 @@
 CC = g++
 NAME = program
 TEST_NAME = program_tests
-CFLAGS = --std=c++11 -Wall --coverage
+CFLAGS = --std=c++17 -Wall --coverage
 DEBUG_FLAG =
 
 BUILD_DIR = ./build
