@@ -1,17 +1,9 @@
 #include "CarteiraExcp.hpp"
 
-/*Métodos para ValorInvalido*/
-ctrexcp::ValorInvalido::ValorInvalido(double valor, std::string nome) {
-    this->_valor = valor;
-    this->_nome = nome;
-}
+// --------------------------------------------- Métodos para ValorInvalido --------------------------------------------
 
 ctrexcp::ValorInvalido::ValorInvalido(double valor) {
     this->_valor = valor;
-}
-
-std::string  ctrexcp::ValorInvalido::getNome() {
-    return this->_nome;
 }
 
 double ctrexcp::ValorInvalido::getValor() {
@@ -19,10 +11,11 @@ double ctrexcp::ValorInvalido::getValor() {
 }
 
 const char* ctrexcp::ValorInvalido::what() const throw() {
-    return "ERRO 🕵️: Valor Invalido";
+    return "ERRO 🕵️: VALOR INVÁLIDO. VALOR < 0 ou VALOR > PIB MUNDIAL.";
 }
 
-/*Métodos para ContaNaoEncontrada*/
+// ------------------------------------------ Métodos para ContaNaoEncontrada ------------------------------------------
+
 ctrexcp::ContaNaoEncontrada::ContaNaoEncontrada(std::string nome) {
     this->_nome = nome;
 }
@@ -32,25 +25,25 @@ std::string ctrexcp::ContaNaoEncontrada::getNome() {
 }
 
 const char* ctrexcp::ContaNaoEncontrada::what() const throw() {
-    return "ERRO 🕵️: Conta não encontrada";
+    return "ERRO 🕵️: CONTA NÃO ENCONTRADA.";
 }
 
 
-// Metodos para ContaJaExiste
+// --------------------------------------------- Metodos para ContaJaExiste --------------------------------------------
 
 ctrexcp::ContaJaExiste::ContaJaExiste(std::string nome) {
     this->_nome = nome;
 }
 
 const char* ctrexcp::ContaJaExiste::what() const throw() {
-    return "ERRO 🕵️: Já existem contas cadastradas com esse nome";
+    return "ERRO 🕵️: JÁ EXISTE UMA CARTEIRA REGISTRADA COM ESSE NOME.";
 }
 
 std::string ctrexcp::ContaJaExiste::getNome() {
     return this->_nome;
 }
 
-// Metodos para ContaNaoPermiteCartao
+// ---------------------------------------- Metodos para ContaNaoPermiteCartao -----------------------------------------
 
 ctrexcp::ContaNaoPermiteCartao::ContaNaoPermiteCartao(std::string nome, std::string subtipo) {
     this->_nome_conta = nome;
@@ -58,7 +51,7 @@ ctrexcp::ContaNaoPermiteCartao::ContaNaoPermiteCartao(std::string nome, std::str
 }
 
 const char* ctrexcp::ContaNaoPermiteCartao::what() const throw() {
-    return "ERRO 🕵️: A conta selecionada nao permite cartao de credito";
+    return "ERRO 🕵️: A CONTA SELECIONADA NÃO PERMITE CARTÃO DE CRÉDITO.";
 }
 
 std::string ctrexcp::ContaNaoPermiteCartao::getNomeConta() {
@@ -69,14 +62,15 @@ std::string ctrexcp::ContaNaoPermiteCartao::getSubtipoConta() {
     return this->_subtipo_conta;
 }
 
-// Metodos para SaldoInsuficiente
+// ------------------------------------------- Metodos para SaldoInsuficiente ------------------------------------------
+
 ctrexcp::SaldoInsuficiente::SaldoInsuficiente(double saldo, double despesa) {
     this->_saldo = saldo;
     this->_despesa = despesa;
 }
 
 const char* ctrexcp::SaldoInsuficiente::what() const throw() {
-    return "ERRO 🕵️: Saldo insuficiente para realizar a transação";
+    return "ERRO 🕵️: SALDO INSUFICIENTE PARA REALIZAR A TRANSAÇÃO";
 }
 
 double ctrexcp::SaldoInsuficiente::getSaldo() {

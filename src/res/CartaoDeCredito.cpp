@@ -1,11 +1,12 @@
 #include "CartaoDeCredito.hpp"
 
-CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero,
-                                 std::string CVV, std::string fechamento,
+CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero, std::string CVV, std::string fechamento,
                                  double limite_cartao) {
-    if (limite_cartao < 0) {
-        throw cdcexcp::LimiteInvalido(nome, numero, limite_cartao);
-    }
+
+    ValidarEntrada::numeroCartao(numero);
+    ValidarEntrada::cvvCartao(CVV);
+    ValidarEntrada::fechamentoCartao(fechamento);
+    ValidarEntrada::valor(limite_cartao);
 
     this->_nome = nome;
     this->_numero = numero;
@@ -39,10 +40,7 @@ std::map<unsigned, std::shared_ptr<Despesa>> &CartaoDeCredito::getListaDespesas(
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
-    if (novo_limite < 0) {
-        throw cdcexcp::LimiteInvalido(this->_nome, this->_numero, novo_limite);
-    }
-
+    ValidarEntrada::valor(novo_limite);
     this->_limite_cartao = novo_limite;
 }
 

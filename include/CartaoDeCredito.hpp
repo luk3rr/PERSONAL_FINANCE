@@ -3,8 +3,10 @@
 
 #include "Despesa.hpp"
 #include "CartaoDeCreditoExcp.hpp"
+#include "CarteiraExcp.hpp"
 #include "Utils.hpp"
 #include "TransacaoExcp.hpp"
+#include "ValidarEntrada.hpp"
 
 #include <iomanip>
 #include <iostream>

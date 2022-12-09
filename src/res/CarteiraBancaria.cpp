@@ -1,10 +1,9 @@
 #include "CarteiraBancaria.hpp"
 
 CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
-                                   : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
+                                   : Carteira(nome, saldo_inicial, "CarteiraBancaria") {}
 
 void CarteiraBancaria::adicionarCartao(CartaoDeCredito cartao) {
-    /*A funcao find do map retorna o 'end' do map se não encontrar nada*/
     if (this->_cartoes.find(cartao.getNome()) == this->_cartoes.end()) {
         getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
     }
@@ -13,7 +12,7 @@ void CarteiraBancaria::adicionarCartao(CartaoDeCredito cartao) {
     }
 }
 
-CarteiraBancaria::~CarteiraBancaria() { }
+CarteiraBancaria::~CarteiraBancaria() {}
 
 void CarteiraBancaria::removerCartao(std::string nome) {
     if (this->_cartoes.find(nome) == this->_cartoes.end()){
@@ -34,7 +33,6 @@ CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
 }
 
 void CarteiraBancaria::pagarFatura(std::string cartao) {
-
     CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
     double valor_fatura = cartaoDeCredito->getTotalDespesas();
 
@@ -51,7 +49,6 @@ void CarteiraBancaria::pagarFatura(std::string cartao) {
 }
 
 void CarteiraBancaria::imprimirInfo() {
-    
     const std::string separador = "___________________________________________";
     Utils::printColor(Foreground::f_yellow, separador);
 
@@ -86,7 +83,6 @@ void CarteiraBancaria::imprimirInfo() {
 }
 
 void CarteiraBancaria::imprimirCartoes() {
-
     for (auto &it : getCartoes()) {
         std::cout << std::endl;
         it.second.imprimirInfo();

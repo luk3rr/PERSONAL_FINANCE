@@ -352,11 +352,10 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, "CARTAO: ");
                     std::cout << e.getNome() << std::endl;
                 }
-
-                catch (cdcexcp::LimiteInvalido& e) {
+                catch (ctrexcp::ValorInvalido &e) {
                     Utils::printColor(Foreground::f_red, e.what());
-                    Utils::printColorNoLine(Foreground::f_red, "LIMITE: "); 
-                    std::cout << e.getLimiteCartao() << std::endl;
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
+                    std::cout << e.getValor() << std::endl;
                 }
                 catch (cdcexcp::NumeroInvalido& e) {
                     Utils::printColor(Foreground::f_red, e.what());

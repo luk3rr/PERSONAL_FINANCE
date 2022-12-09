@@ -4,6 +4,10 @@ unsigned Transacao::_contador = 0;
 
 Transacao::Transacao(double valor, std::string data, std::string categoria,
     std::string subtipo) {
+
+    ValidarEntrada::valor(valor);
+    ValidarEntrada::data(data);
+
     this->_valor = valor;
     this->_data = data;
     this->_categoria = categoria;

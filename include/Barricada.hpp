@@ -11,7 +11,9 @@
 #include <iostream>
 #include <limits>
 #include <regex>
-
+#include <iomanip>
+#include <sstream>
+#include <vector>
 
 class Barricada {
     private:
@@ -27,8 +29,6 @@ class Barricada {
         static void validarValor(double &valor);
 
         static void validarID(unsigned &id);
-
-        static void validarLimiteCartao(double &limite);
 
         static void validarNumeroCartao(std::string &numero);
 

@@ -1,11 +1,5 @@
 #include "Barricada.hpp"
 
-#include <iomanip>
-#include <ctime>
-#include <regex>
-#include <sstream>
-#include <vector>
-
 // [d]despesa, [r]receita, [t]transferencia, [a]todos
 const std::string Barricada::TIPO_VALIDO = "^[drta]$";
 const std::string Barricada::NUMERO_CC_VALIDO = "^[0-9]{13,16}$";

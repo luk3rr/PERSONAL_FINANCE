@@ -2,6 +2,7 @@
 #define TRANSACAO_H
 
 #include "Utils.hpp"
+#include "ValidarEntrada.hpp"
 
 #include <string>
 

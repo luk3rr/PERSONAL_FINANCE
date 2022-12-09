@@ -5,7 +5,6 @@
 #include <string>
 
 namespace cdcexcp {
-
     class LimiteExcedido : public std::exception {
         private:
             std::string _nome_cartao, _numero_cartao;
@@ -101,9 +100,7 @@ namespace cdcexcp {
             const char* what() const throw();
 
             std::string getNome();
-
     };
-
 }
 
 #endif // !CARTAO_DE_CREDITO_EXCP_H

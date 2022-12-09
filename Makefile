@@ -30,31 +30,22 @@ BUILD_FILES = \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/Utils.o \
 	$(BUILD_DIR)/CarteiraExcp.o \
+	$(BUILD_DIR)/ValidarEntrada.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
-    $(BUILD_DIR)/GerenciaCarteira.o \
-    $(BUILD_DIR)/Carteira.o \
-    $(BUILD_DIR)/CarteiraBancaria.o \
-    $(BUILD_DIR)/Receita.o \
-    $(BUILD_DIR)/Despesa.o \
-    $(BUILD_DIR)/Transferencia.o \
-    $(BUILD_DIR)/Transacao.o \
-    $(BUILD_DIR)/CartaoDeCredito.o \
     $(BUILD_DIR)/CartaoDeCreditoExcp.o \
+	$(BUILD_DIR)/CartaoDeCredito.o \
     $(BUILD_DIR)/GerenciaCarteiraExcp.o \
     $(BUILD_DIR)/TransacaoExcp.o \
-    $(BUILD_DIR)/Utils.o \
-    $(BUILD_DIR)/CarteiraExcp.o
+	$(BUILD_DIR)/Transacao.o \
+    $(BUILD_DIR)/CarteiraExcp.o \
+	$(BUILD_DIR)/ValidarEntrada.o \
+	$(BUILD_DIR)/Utils.o \
+	$(BUILD_DIR)/Despesa.o
 
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteDespesa.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteGerenciaConta.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteReceita.o \
-	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteTransferencia.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/main_test.o 
 
 all: $(BUILD_DIR)/$(NAME)

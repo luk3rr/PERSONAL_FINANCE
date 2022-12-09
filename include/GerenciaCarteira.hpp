@@ -11,6 +11,7 @@
 #include "GerenciaCarteiraExcp.hpp"
 #include "CarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
+#include "ValidarEntrada.hpp"
 
 #include <algorithm>
 #include <cctype>

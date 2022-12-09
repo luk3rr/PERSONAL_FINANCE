@@ -2,18 +2,16 @@
 
 
 Carteira::Carteira(std::string nome, double saldo_inicial) {
-    if (saldo_inicial < 0) {
-        throw ctrexcp::ValorInvalido(saldo_inicial, nome);
-    }
+    ValidarEntrada::valor(saldo_inicial);
+
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = "Carteira";
 }
 
 Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) {
-    if (saldo_inicial < 0) {
-        throw ctrexcp::ValorInvalido(saldo_inicial, nome);
-    }
+    ValidarEntrada::valor(saldo_inicial);
+
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = subtipo;
@@ -95,9 +93,8 @@ double Carteira::getSaldoAtual() {
 }
 
 void Carteira::setSaldoAtual(double saldo) {
-    if (saldo < 0) {
-        throw ctrexcp::ValorInvalido(saldo, this->getNome());
-    }
+    ValidarEntrada::valor(saldo);
+
     this->_saldo_atual = saldo;
 }
 

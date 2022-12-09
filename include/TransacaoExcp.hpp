@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 
+
 namespace trsexcp {
     class TransacaoNaoEncontrada : public std::exception {
         private:

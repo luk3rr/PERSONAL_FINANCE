@@ -7,7 +7,7 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaCarteira::getCarteiras
 }
 
 std::shared_ptr<Carteira> GerenciaCarteira::getCarteira(std::string nome) {
-    // A funcao 'find' de um map retorna um ponteiro para map.end se nao houver chave com o mesmo 'nome'
+    // A funcao 'find' map retorna um ponteiro para map.end se nao houver chave com o mesmo 'nome'
     if (getCarteiras().find(nome) == getCarteiras().end()) {
         throw ctrexcp::ContaNaoEncontrada(nome);
     }
@@ -20,9 +20,7 @@ std::shared_ptr<Carteira> GerenciaCarteira::getCarteira(std::string nome) {
 
 void GerenciaCarteira::adicionarCarteira(std::string nome, double saldo_inicial) {
     // Carteira
-    if (saldo_inicial < 0) {
-        throw ctrexcp::ValorInvalido(saldo_inicial);
-    }
+    ValidarEntrada::valor(saldo_inicial);
 
     if (getCarteiras().find(nome) == getCarteiras().end()) {
         std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
@@ -78,8 +76,8 @@ void GerenciaCarteira::removerDespesa(std::string carteira, unsigned id) {
 
 void GerenciaCarteira::adicionarTransferencia(double valor, std::string data, std::string categoria, std::string origem,
                                               std::string destino) {
-    if (valor < 0) throw ctrexcp::ValorInvalido(valor);
-    if (origem == destino) throw trsexcp::OrigemDestinoIguais(origem);
+
+    ValidarEntrada::origemDestino(origem, destino);
 
     std::shared_ptr<Carteira> carteira_origem = getCarteira(origem);
     if (carteira_origem->getSaldoAtual() < valor) throw ctrexcp::SaldoInsuficiente(carteira_origem->getSaldoAtual(), valor);
