@@ -288,15 +288,12 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, "CONTA ORIGEM IGUAL AO DESTINO: ");
                     std::cout << e.getOrigemDestino() << std::endl;
                 }
-                catch (ctrexcp::ValorInvalido& e) {
+                catch (ctrexcp::SaldoInsuficiente& e) {
                     Utils::printColor(Foreground::f_red, e.what());
-                    Utils::printColor(Foreground::f_red, "TRANSFERÊNCIA DEIXA SALDO NO NEGATIVO");
-                    Utils::printColorNoLine(Foreground::f_red, "CONTA: "); 
-                    std::cout << e.getNome() << std::endl;
-                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
-                    std::cout << e.getValor() << std::endl;
-                    Utils::printColorNoLine(Foreground::f_red, "VALOR DA TRANSAÇÃO: "); 
-                    std::cout << valor_transacao << std::endl;
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO NA CONTA: ");
+                    std::cout << "R$ " << e.getSaldo() << std::endl;
+                    Utils::printColorNoLine(Foreground::f_red, "VALOR QUE DEVE SER DEBITADO: ");
+                    std::cout << "R$ " << e.getDespesa() << std::endl;
                 }
                 catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColor(Foreground::f_red, e.what());
