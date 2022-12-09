@@ -7,14 +7,14 @@
 
 class Despesa : public Transacao {
     private:
-        std::string _conta;
+        std::string _carteira;
 
     public:
-        Despesa(double valor, std::string data, std::string categoria, std::string conta);
+        Despesa(std::string _carteira, double valor, std::string data, std::string categoria);
 
-        std::string getConta();
+        std::string getCarteira();
 
-        void alterarConta(std::string nova_conta);
+        void alterarCarteira(std::string nova_carteira);
 
         void imprimirInfo();
 };

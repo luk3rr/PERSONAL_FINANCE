@@ -1,16 +1,16 @@
 #include "Despesa.hpp"
 
-Despesa::Despesa(double valor, std::string data, std::string categoria,
-        std::string conta) : Transacao(valor, data, categoria, "despesa") {
-    this->_conta = conta;
+Despesa::Despesa(std::string carteira, double valor, std::string data, std::string categoria) 
+                : Transacao(valor, data, categoria, "despesa") {
+    this->_carteira = carteira;
 }
 
-std::string Despesa::getConta() {
-    return this->_conta;
+std::string Despesa::getCarteira() {
+    return this->_carteira;
 }
 
-void Despesa::alterarConta(std::string nova_conta) {
-    this->_conta = nova_conta;
+void Despesa::alterarCarteira(std::string nova_carteira) {
+    this->_carteira = nova_carteira;
 }
 
 void Despesa::imprimirInfo() {
@@ -23,11 +23,11 @@ void Despesa::imprimirInfo() {
 
     if (getSubtipo() == "CarteiraBancaria") {
         Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA BANCÁRIA: ");
-        std::cout << getConta() << std::endl;
+        std::cout << getCarteira() << std::endl;
     }
     else if (getSubtipo() == "Carteira") {
         Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA: ");
-        std::cout << getConta() << std::endl;
+        std::cout << getCarteira() << std::endl;
     }
     
     Utils::printColorNoLine(Efeitos::bold_bright, "\tVALOR: ");

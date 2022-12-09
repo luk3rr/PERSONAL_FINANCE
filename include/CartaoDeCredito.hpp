@@ -13,13 +13,16 @@
 
 class CartaoDeCredito {
     private:
-        std::string _nome, _numero, _CVV, _fechamento;
+        std::string _nome,
+                    _numero,
+                    _CVV,
+                    _fechamento;
+
         double _limite_cartao;
         std::list<std::shared_ptr<Despesa>> _despesas;
 
     public:
-        CartaoDeCredito(std::string nome, std::string numero, std::string CVV,
-                        std::string fechamento, double limite_cartao);
+        CartaoDeCredito(std::string nome, std::string numero, std::string CVV, std::string fechamento, double limite_cartao);
 
         std::string getNome();
 
@@ -43,7 +46,7 @@ class CartaoDeCredito {
 
         // Retorna true se a despesa foi localizada e removida
         // e falso se nao foi localizada
-        bool removerDespesa(int id);
+        bool removerDespesa(unsigned id);
 
         void imprimirInfo();
 };

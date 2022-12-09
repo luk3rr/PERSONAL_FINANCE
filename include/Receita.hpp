@@ -7,14 +7,14 @@
 
 class Receita : public Transacao {
     private:
-        std::string _conta;
+        std::string _carteira;
 
     public:
-        Receita(std::string conta, double valor, std::string data, std::string categoria);
+        Receita(std::string carteira, double valor, std::string data, std::string categoria);
 
-        void alterarConta(std::string conta_destino);
+        void alterarCarteira(std::string nova_carteira);
 
-        std::string getConta();
+        std::string getCarteira();
 
         void imprimirInfo();
 };

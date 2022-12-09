@@ -1,5 +1,6 @@
 #include "Carteira.hpp"
 
+
 Carteira::Carteira(std::string nome, double saldo_inicial) {
     if (saldo_inicial < 0) {
         throw ctrexcp::ValorInvalido(saldo_inicial, nome);
@@ -21,13 +22,20 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 Carteira::~Carteira() { }
 
 void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
-    this->_transacoes.insert(std::pair<unsigned, std::shared_ptr<Transacao>>
-        (transacao->getID(), transacao));
+    this->_transacoes.insert(std::pair<unsigned, std::shared_ptr<Transacao>>(transacao->getID(), transacao));
+}
+
+void Carteira::adicionarReceita(double valor, std::string data, std::string categoria) {
+    std::shared_ptr<Receita> receita = std::make_shared<Receita>(this->getNome(), valor, data, categoria);
+    setSaldoAtual(getSaldoAtual() + valor);
+    this->adicionarTransacao(receita);
 }
 
 void Carteira::removerReceita(unsigned id) {
     std::shared_ptr<Transacao> receita = this->getTransacao(id);
     double valor = receita->getValor();
+
+    if (this->getSaldoAtual() < valor) throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
 
     if (receita->getSubtipo() == "receita") {
         setSaldoAtual(getSaldoAtual() - valor);
@@ -36,6 +44,14 @@ void Carteira::removerReceita(unsigned id) {
     else {
         throw trsexcp::TipoTransacaoInvalido(receita->getSubtipo());
     }
+}
+
+void Carteira::adicionarDespesa(double valor, std::string data, std::string categoria) {
+    if (this->getSaldoAtual() < valor) throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
+
+    std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(this->getNome(), valor, data, categoria);
+    setSaldoAtual(getSaldoAtual() - valor);
+    this->adicionarTransacao(despesa);
 }
 
 void Carteira::removerDespesa(unsigned id) {

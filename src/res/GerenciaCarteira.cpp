@@ -51,25 +51,13 @@ void GerenciaCarteira::removerConta(std::string nome) {
 }
 
 void GerenciaCarteira::adicionarReceita(std::string carteira, double valor, std::string data, std::string categoria) {
-    std::shared_ptr<Carteira> wallet = getCarteira(carteira);
-
-    wallet->setSaldoAtual(wallet->getSaldoAtual() + valor);
-    
-    std::shared_ptr<Receita> receita = std::make_shared<Receita>(carteira, valor, data, categoria);
-    wallet->adicionarTransacao(receita);
+    std::shared_ptr<Carteira> minha_carteira = getCarteira(carteira);
+    minha_carteira->adicionarReceita(valor, data, categoria);
 }
 
 void GerenciaCarteira::adicionarDespesa(std::string carteira, double valor, std::string data, std::string categoria) {
-    std::shared_ptr<Carteira> wallet = getCarteira(carteira);
-
-    if (wallet->getSaldoAtual() < valor) {
-        throw ctrexcp::SaldoInsuficiente(wallet->getSaldoAtual(), valor);
-    }
-    
-    wallet->setSaldoAtual(wallet->getSaldoAtual() - valor);
-
-    std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, carteira);
-    getCarteira(carteira)->adicionarTransacao(despesa);
+    std::shared_ptr<Carteira> minha_carteira = getCarteira(carteira);
+    minha_carteira->adicionarDespesa(valor, data, categoria);
 }
 
 void GerenciaCarteira::adicionarDespesaCartao(std::string carteira, std::string cartao, double valor, std::string data, 

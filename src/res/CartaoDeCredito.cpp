@@ -50,7 +50,7 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::stri
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "carteira" de uma despesa do cartao de credito eh o nome do cartao
-        _despesas.push_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
+        _despesas.push_back(std::make_shared<Despesa>(_nome, valor, data, categoria));
     } 
     else {
         throw cdcexcp::LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao,
@@ -74,7 +74,7 @@ void CartaoDeCredito::listarDespesas() {
     }
 }
 
-bool CartaoDeCredito::removerDespesa(int id) {
+bool CartaoDeCredito::removerDespesa(unsigned id) {
     std::list<std::shared_ptr<Despesa>>::iterator it;
     for (it = this->_despesas.begin(); it != this->_despesas.end(); it++) {
         if ((*it)->getID() == id) {

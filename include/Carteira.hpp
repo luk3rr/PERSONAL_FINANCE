@@ -6,6 +6,8 @@
 #include "GerenciaCarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
 #include "CarteiraExcp.hpp"
+#include "Receita.hpp"
+#include "Despesa.hpp"
 
 #include <iomanip>
 #include <iostream>
@@ -27,11 +29,13 @@ class Carteira {
 
         virtual ~Carteira();
 
-        void ultimasTransacoes(unsigned quantidade);
-
         void adicionarTransacao(std::shared_ptr<Transacao> transacao);
 
+        void adicionarReceita(double valor, std::string data, std::string categoria);
+
         void removerReceita(unsigned id);
+
+        void adicionarDespesa(double valor, std::string data, std::string categoria);
 
         void removerDespesa(unsigned id);
 
@@ -44,6 +48,8 @@ class Carteira {
         std::map<unsigned, std::shared_ptr<Transacao>>& getTransacoes();
 
         std::shared_ptr<Transacao> getTransacao(unsigned id);
+
+        void ultimasTransacoes(unsigned quantidade);
 
         std::string getSubtipo();
 

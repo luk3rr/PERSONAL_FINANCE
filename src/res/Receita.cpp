@@ -1,16 +1,16 @@
 #include "Receita.hpp"
 
-Receita::Receita(std::string conta, double valor, std::string data,
-        std::string categoria) : Transacao(valor, data, categoria, "receita") {
-    this->_conta = conta;
+Receita::Receita(std::string carteira, double valor, std::string data, std::string categoria) 
+                : Transacao(valor, data, categoria, "receita") {
+    this->_carteira = carteira;
 }
 
-void Receita::alterarConta(std::string conta_destino) {
-    this->_conta = conta_destino;
+void Receita::alterarCarteira(std::string nova_carteira) {
+    this->_carteira = nova_carteira;
 }
 
-std::string Receita::getConta() {
-    return this->_conta;
+std::string Receita::getCarteira() {
+    return this->_carteira;
 }
 
 void Receita::imprimirInfo() {
@@ -23,11 +23,11 @@ void Receita::imprimirInfo() {
 
     if (getSubtipo() == "CarteiraBancaria") {
         Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA BANCÁRIA: ");
-        std::cout << getConta() << std::endl;
+        std::cout << getCarteira() << std::endl;
     }
     else if (getSubtipo() == "Carteira") {
         Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA: ");
-        std::cout << getConta() << std::endl;
+        std::cout << getCarteira() << std::endl;
     }
     
     Utils::printColorNoLine(Efeitos::bold_bright, "\tVALOR: ");
