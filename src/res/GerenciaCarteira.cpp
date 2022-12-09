@@ -32,7 +32,7 @@ void GerenciaCarteira::adicionarCarteira(std::string nome, double saldo_inicial)
 }
 
 void GerenciaCarteira::adicionarCarteira(double saldo_inicial, std::string nome) {
-    // overload para adicionar CarteiraBancaria
+    // Overload para adicionar CarteiraBancaria
     if (getCarteiras().find(nome) == getCarteiras().end()) {
         std::shared_ptr<CarteiraBancaria> carteira = std::make_shared<CarteiraBancaria>(nome, saldo_inicial);
         this->_carteiras.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
@@ -61,11 +61,12 @@ void GerenciaCarteira::adicionarDespesa(std::string carteira, double valor, std:
 }
 
 void GerenciaCarteira::adicionarDespesaCartao(std::string carteira, std::string cartao, double valor, std::string data, 
-                                           std::string categoria) {
+                                              std::string categoria) {
 
-    if (getCarteira(carteira)->getSubtipo() == "CarteiraBancaria") {
+    std::shared_ptr<Carteira> minha_carteira = getCarteira(carteira);
+    if (minha_carteira->getSubtipo() == "CarteiraBancaria") {
         std::shared_ptr<CarteiraBancaria> carteira_bancaria;
-        carteira_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getCarteira(carteira));
+        carteira_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(minha_carteira);
         carteira_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
     }
     else {
@@ -228,7 +229,6 @@ void GerenciaCarteira::listarTransacao(std::string carteira, std::string tipo) {
                 ++i;
             }   
         }
-
         if (i == 0) {
             std::cout << std::endl;
             Utils::printColor(Foreground::f_yellow, "Nenhuma " + tipo + " encontrada");

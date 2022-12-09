@@ -34,8 +34,8 @@ double CartaoDeCredito::getLimite() {
     return this->_limite_cartao;
 }
 
-std::list<std::shared_ptr<Despesa>>* CartaoDeCredito::getListaDespesas() {
-    return &this->_despesas;
+std::map<unsigned, std::shared_ptr<Despesa>> &CartaoDeCredito::getListaDespesas() {
+    return this->_despesas;
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
@@ -47,42 +47,42 @@ void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
 }
 
 void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::string categoria) {
-
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "carteira" de uma despesa do cartao de credito eh o nome do cartao
-        _despesas.push_back(std::make_shared<Despesa>(_nome, valor, data, categoria));
+        std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(this->_nome, valor, data, categoria);
+        this->_despesas.insert(std::pair<unsigned, std::shared_ptr<Despesa>>(despesa->getID(), despesa));
     } 
     else {
-        throw cdcexcp::LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao,
-                                      this->getTotalDespesas());
+        throw cdcexcp::LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao, this->getTotalDespesas());
     }
 }
 
 double CartaoDeCredito::getTotalDespesas() {
     double soma_despesas = 0;
-    for (auto const& despesa : _despesas) {
-        soma_despesas += despesa->getValor();
+    for (auto it : this->_despesas) {
+       soma_despesas += it.second->getValor();
     }
     return soma_despesas;
 }
 
 void CartaoDeCredito::listarDespesas() {
     this->imprimirInfo();
-
-    for (auto const& despesa : _despesas) {
-        despesa->imprimirInfo();
+    for (auto it : _despesas) {
+        it.second->imprimirInfo();
     }
 }
 
-bool CartaoDeCredito::removerDespesa(unsigned id) {
-    std::list<std::shared_ptr<Despesa>>::iterator it;
-    for (it = this->_despesas.begin(); it != this->_despesas.end(); it++) {
-        if ((*it)->getID() == id) {
+void CartaoDeCredito::removerDespesa(unsigned id) {
+    if (this->_despesas.find(id) == this->_despesas.end()) {
+        throw trsexcp::TransacaoNaoEncontrada(id);
+    }
+
+    for (auto it = this->_despesas.begin(); it != this->_despesas.end(); it++) {
+        if (it->second->getID() == id) {
             this->_despesas.erase(it);
-            return true;
+            break;
         }
     }
-    return false;
 }
 
 void CartaoDeCredito::imprimirInfo() {

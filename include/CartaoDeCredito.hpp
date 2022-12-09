@@ -4,10 +4,11 @@
 #include "Despesa.hpp"
 #include "CartaoDeCreditoExcp.hpp"
 #include "Utils.hpp"
+#include "TransacaoExcp.hpp"
 
 #include <iomanip>
 #include <iostream>
-#include <list>
+#include <map>
 #include <memory>
 #include <string>
 
@@ -19,7 +20,7 @@ class CartaoDeCredito {
                     _fechamento;
 
         double _limite_cartao;
-        std::list<std::shared_ptr<Despesa>> _despesas;
+        std::map<unsigned, std::shared_ptr<Despesa>> _despesas;
 
     public:
         CartaoDeCredito(std::string nome, std::string numero, std::string CVV, std::string fechamento, double limite_cartao);
@@ -36,7 +37,7 @@ class CartaoDeCredito {
 
         double getLimite();
 
-        std::list<std::shared_ptr<Despesa>>* getListaDespesas();
+        std::map<unsigned, std::shared_ptr<Despesa>> &getListaDespesas();
 
         void alterarLimiteCartao(double limite);
 
@@ -44,9 +45,7 @@ class CartaoDeCredito {
 
         void listarDespesas();
 
-        // Retorna true se a despesa foi localizada e removida
-        // e falso se nao foi localizada
-        bool removerDespesa(unsigned id);
+        void removerDespesa(unsigned id);
 
         void imprimirInfo();
 };

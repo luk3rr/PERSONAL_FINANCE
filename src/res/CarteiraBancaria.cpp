@@ -42,16 +42,13 @@ void CarteiraBancaria::pagarFatura(std::string cartao) {
     if (valor_fatura > this->getSaldoAtual()) {
         throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor_fatura);
     }
-    setSaldoAtual(getSaldoAtual() - valor_fatura);
+    this->setSaldoAtual(getSaldoAtual() - valor_fatura);
 
-    std::list<std::shared_ptr<Despesa>>* listDespesa = cartaoDeCredito->getListaDespesas();
-    for (std::shared_ptr<Despesa> despesa : *listDespesa) {
-
-        int id = despesa->getID();
-        getTransacoes().insert(std::pair<int, std::shared_ptr<Transacao>>(id, despesa));
+    std::map<unsigned, std::shared_ptr<Despesa>> &despesas_cartao = cartaoDeCredito->getListaDespesas();
+    for (auto despesa : despesas_cartao) {
+        this->getTransacoes().insert(std::move(despesa));
     }
-
-    listDespesa->clear();
+    despesas_cartao.clear();
 }
 
 void CarteiraBancaria::imprimirInfo() {

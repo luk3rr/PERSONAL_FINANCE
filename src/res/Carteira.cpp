@@ -74,6 +74,10 @@ std::shared_ptr<Transacao> Carteira::getTransacao(unsigned id) {
     return this->getTransacoes().find(id)->second;
 }
 
+std::map<unsigned, std::shared_ptr<Transacao>> &Carteira::getTransacoes() {
+    return this->_transacoes;
+}
+
 void Carteira::ultimasTransacoes(unsigned quantidade) {
     auto it = getTransacoes().rbegin();
     for (unsigned i = 0; i < quantidade && i < getTransacoes().size(); ++i) {
@@ -97,9 +101,6 @@ void Carteira::setSaldoAtual(double saldo) {
     this->_saldo_atual = saldo;
 }
 
-std::map<unsigned, std::shared_ptr<Transacao>>& Carteira::getTransacoes() {
-    return this->_transacoes;
-}
 
 std::string Carteira::getSubtipo() {
     return this->_subtipo;
