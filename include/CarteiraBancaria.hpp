@@ -1,5 +1,5 @@
-#ifndef CONTABANCARIA_H
-#define CONTABANCARIA_H
+#ifndef CONTA_BANCARIA_H
+#define CONTA_BANCARIA_H
 
 #include "Carteira.hpp"
 #include "CartaoDeCredito.hpp"
