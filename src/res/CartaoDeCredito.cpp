@@ -15,6 +15,8 @@ CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero, std::stri
     this->_limite_cartao = limite_cartao;
 }
 
+// -------------------------------------------------- Metodos set/get --------------------------------------------------
+
 std::string CartaoDeCredito::getNome() {
     return this->_nome;
 }
@@ -39,10 +41,20 @@ std::map<unsigned, std::shared_ptr<Despesa>> &CartaoDeCredito::getListaDespesas(
     return this->_despesas;
 }
 
+double CartaoDeCredito::getTotalDespesas() {
+    double soma_despesas = 0;
+    for (auto it : this->_despesas) {
+       soma_despesas += it.second->getValor();
+    }
+    return soma_despesas;
+}
+
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
     ValidarEntrada::valor(novo_limite);
     this->_limite_cartao = novo_limite;
 }
+
+// -------------------------------------------------- ADD/RM despesa ---------------------------------------------------
 
 void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::string categoria) {
     if (this->getTotalDespesas() + valor > this->_limite_cartao) {
@@ -52,21 +64,6 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::stri
     // A "carteira" de uma despesa do cartao de credito eh o nome do cartao
     std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(this->_nome, valor, data, categoria);
     this->_despesas.insert(std::pair<unsigned, std::shared_ptr<Despesa>>(despesa->getID(), despesa));
-}
-
-double CartaoDeCredito::getTotalDespesas() {
-    double soma_despesas = 0;
-    for (auto it : this->_despesas) {
-       soma_despesas += it.second->getValor();
-    }
-    return soma_despesas;
-}
-
-void CartaoDeCredito::listarDespesas() {
-    this->imprimirInfo();
-    for (auto it : _despesas) {
-        it.second->imprimirInfo();
-    }
 }
 
 void CartaoDeCredito::removerDespesa(unsigned id) {
@@ -79,6 +76,15 @@ void CartaoDeCredito::removerDespesa(unsigned id) {
             this->_despesas.erase(it);
             break;
         }
+    }
+}
+
+// ------------------------------------------------ Metodos de impressao -----------------------------------------------
+
+void CartaoDeCredito::listarDespesas() {
+    this->imprimirInfo();
+    for (auto it : _despesas) {
+        it.second->imprimirInfo();
     }
 }
 

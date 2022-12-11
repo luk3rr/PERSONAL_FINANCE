@@ -1,6 +1,5 @@
 #include "Carteira.hpp"
 
-
 Carteira::Carteira(std::string nome, double saldo_inicial) {
     ValidarEntrada::valor(saldo_inicial);
 
@@ -19,9 +18,43 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 
 Carteira::~Carteira() { }
 
+std::string Carteira::getNome() {
+    return this->_nome;
+}
+
+double Carteira::getSaldoAtual() {
+    return this->_saldo_atual;
+}
+
+void Carteira::setSaldoAtual(double saldo) {
+    ValidarEntrada::valor(saldo);
+
+    this->_saldo_atual = saldo;
+}
+
+
+std::string Carteira::getSubtipo() {
+    return this->_subtipo;
+}
+
+//------------------------------------------- Manipulaco do map de transacoes ------------------------------------------ 
+
 void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
     this->_transacoes.insert(std::pair<unsigned, std::shared_ptr<Transacao>>(transacao->getID(), transacao));
 }
+
+std::shared_ptr<Transacao> Carteira::getTransacao(unsigned id) {
+    if (this->getTransacoes().find(id) == this->getTransacoes().end()) {
+        throw trsexcp::TransacaoNaoEncontrada(id);
+    }
+    return this->getTransacoes().find(id)->second;
+}
+
+std::map<unsigned, std::shared_ptr<Transacao>> &Carteira::getTransacoes() {
+    return this->_transacoes;
+}
+
+// ------------------------------------------------- ADD/RM receita ----------------------------------------------------
 
 void Carteira::adicionarReceita(double valor, std::string data, std::string categoria) {
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(this->getNome(), valor, data, categoria);
@@ -44,6 +77,8 @@ void Carteira::removerReceita(unsigned id) {
     }
 }
 
+// ------------------------------------------------- ADD/RM despesa ----------------------------------------------------
+
 void Carteira::adicionarDespesa(double valor, std::string data, std::string categoria) {
     if (this->getSaldoAtual() < valor) throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
 
@@ -65,16 +100,7 @@ void Carteira::removerDespesa(unsigned id) {
     }
 }
 
-std::shared_ptr<Transacao> Carteira::getTransacao(unsigned id) {
-    if (this->getTransacoes().find(id) == this->getTransacoes().end()) {
-        throw trsexcp::TransacaoNaoEncontrada(id);
-    }
-    return this->getTransacoes().find(id)->second;
-}
-
-std::map<unsigned, std::shared_ptr<Transacao>> &Carteira::getTransacoes() {
-    return this->_transacoes;
-}
+// ---------------------------------------------- Metodos de impressao -------------------------------------------------
 
 void Carteira::ultimasTransacoes(unsigned quantidade) {
     auto it = getTransacoes().rbegin();
@@ -82,25 +108,6 @@ void Carteira::ultimasTransacoes(unsigned quantidade) {
         it->second->imprimirInfo();
         ++it;
     }
-}
-
-std::string Carteira::getNome() {
-    return this->_nome;
-}
-
-double Carteira::getSaldoAtual() {
-    return this->_saldo_atual;
-}
-
-void Carteira::setSaldoAtual(double saldo) {
-    ValidarEntrada::valor(saldo);
-
-    this->_saldo_atual = saldo;
-}
-
-
-std::string Carteira::getSubtipo() {
-    return this->_subtipo;
 }
 
 void Carteira::imprimirInfo() {
