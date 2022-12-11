@@ -79,11 +79,8 @@ void CarteiraBancaria::imprimirInfo() {
     if (getSaldoAtual() > 0) {
         Utils::printColor(Foreground::f_green, saldo);
     }
-    else if (getSaldoAtual() < 0) {
+    else if (getSaldoAtual() <= 0) {
         Utils::printColor(Foreground::f_red, saldo);
-    }
-    else {
-        std::cout << saldo << std::endl;
     }
 
     Utils::printColorNoLine(Efeitos::bold_bright, "QUANTIDADE DE TRANSAÇÕES: ");

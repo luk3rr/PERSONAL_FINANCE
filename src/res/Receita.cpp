@@ -20,15 +20,6 @@ void Receita::imprimirInfo() {
 
     Utils::printColorNoLine(Efeitos::bold_bright, "\tID DA RECEITA: ");
     std::cout << getID() << std::endl;
-
-    if (getSubtipo() == "CarteiraBancaria") {
-        Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA BANCÁRIA: ");
-        std::cout << getCarteira() << std::endl;
-    }
-    else if (getSubtipo() == "Carteira") {
-        Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA: ");
-        std::cout << getCarteira() << std::endl;
-    }
     
     Utils::printColorNoLine(Efeitos::bold_bright, "\tVALOR: ");
     std::string valor = std::to_string(getValor());
