@@ -1,18 +1,21 @@
 #include "Transferencia.hpp"
+#include "TransacaoExcp.hpp"
 
-Transferencia::Transferencia(double valor, std::string data,
-        std::string categoria, std::string origem, std::string destino)
+Transferencia::Transferencia(double valor, std::string data, std::string categoria, std::string origem, std::string destino)
         : Transacao(valor, data, categoria, "transferencia") {
+    ValidarEntrada::origemDestino(origem, destino);
 
     this->_origem = origem;
     this->_destino = destino;
 }
 
 void Transferencia::alterarDestino(std::string novo_destino) {
+    if (novo_destino == this->_origem) throw trsexcp::OrigemDestinoIguais(novo_destino);
     this->_destino = novo_destino;
 }
 
 void Transferencia::alterarOrigem(std::string nova_origem) {
+    if (nova_origem == this->_destino) throw trsexcp::OrigemDestinoIguais(nova_origem);
     this->_origem = nova_origem;
 }
 
