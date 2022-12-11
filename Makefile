@@ -51,6 +51,9 @@ BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteReceita.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteDespesa.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteTransferencia.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/main_test.o 
 
 all: $(BUILD_DIR)/$(NAME)
@@ -90,8 +93,14 @@ run_tests: mkdir_test_build tests
 	${TEST_DIR}$(BUILD_TEST_DIR)/${TEST_NAME}
 
 coverage: run_tests
-	gcovr -r . --exclude="third_party/doctest.h"
-	gcovr -r . --exclude="third_party/doctest.h" -b
+	gcovr -r . 	--exclude="third_party/doctest.h" \
+				--exclude="src/res/GerenciaContaExcp.cpp" \
+            	--exclude="src/res/CarteiraExcp.cpp" \
+            	--exclude="src/res/TransacaoExcp.cpp" \
+            	--exclude="src/res/CartaoDeCreditoExcp.cpp" \
+            	--exclude="src/res/Utils.cpp" \
+            	--exclude="src/res/ValidarEntrada.cpp" \
+            	--exclude="src/main.cpp" \
 
 valgrind:
 	valgrind --leak-check=full $(BUILD_DIR)/$(NAME)
@@ -106,6 +115,8 @@ html_coverage: run_tests
             	--exclude="src/res/CarteiraExcp.cpp" \
             	--exclude="src/res/TransacaoExcp.cpp" \
             	--exclude="src/res/CartaoDeCreditoExcp.cpp" \
+            	--exclude="src/res/Utils.cpp" \
+            	--exclude="src/res/ValidarEntrada.cpp" \
             	--exclude="src/main.cpp" \
             	--html --html-details -o ${COVERAGE_DIR}/relatorio.html
 

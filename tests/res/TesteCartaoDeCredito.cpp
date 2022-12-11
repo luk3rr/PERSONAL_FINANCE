@@ -1,6 +1,8 @@
 #include "doctest.h"
 #include "CartaoDeCredito.hpp"
 
+#define BIG_NUMBER 1000000000000000000
+
 // Variaveis do tipo despesa com o nome "aux_id" sao usadas para saber qual o ID das ultimas
 // transacoes
 
@@ -16,6 +18,10 @@ TEST_CASE("Limite disponível após remover despesa") {
 
 TEST_CASE("Criar cartão com limite negativo") {
     CHECK_THROWS_AS(CartaoDeCredito card1("c1", "12345678901234", "001", "10", -10), ctrexcp::ValorInvalido);
+}
+
+TEST_CASE("Criar cartão com limite maior que o PIB mundial") {
+    CHECK_THROWS_AS(CartaoDeCredito card1("c1", "12345678901234", "001", "10", BIG_NUMBER), ctrexcp::ValorInvalido);
 }
 
 TEST_CASE("Criar cartão com numero invalido (< 13 ou > 16 caracteres)") {
@@ -91,4 +97,16 @@ TEST_CASE("Pegar lista de despesas") {
     card1.adicionarDespesa(1.512, "10/11/1999", "padaria");
     auto lista = card1.getListaDespesas();
     CHECK(lista.size() == 3);
+}
+
+TEST_CASE("OUTPUT - impressao das info do cartao + lista de despesas") {
+    CartaoDeCredito card1("b1", "12345678901234", "001", "10", 100);
+    card1.adicionarDespesa(5, "10/11/1999", "padaria");
+    card1.adicionarDespesa(15, "10/11/1999", "padaria");
+    card1.listarDespesas();
+    
+    SUBCASE("Limite zerado") {
+        card1.adicionarDespesa(80, "10/10/2010", "c1");
+        card1.listarDespesas();
+    }
 }

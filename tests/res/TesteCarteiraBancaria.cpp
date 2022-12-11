@@ -109,8 +109,23 @@ TEST_CASE("Pagar fatura do cartao de credito - liberar lista de despesas do cart
 TEST_CASE("Pagar fatura do cartao de credito - mover lista de despesas para a carteira") {
     CarteiraBancaria minha_carteira = CarteiraBancaria("c1", 500);
     minha_carteira.adicionarCartao("card1", "12345678901234", "001", "10", 200);
+    minha_carteira.adicionarDespesa(1, "10/10/2010", "c1");
     minha_carteira.adicionarDespesaCartao("card1", 10, "10/10/2010", "c1");
     minha_carteira.adicionarDespesaCartao("card1", 90, "11/10/2010", "c1");
     minha_carteira.pagarFatura("card1");
-    CHECK(minha_carteira.getTransacoes().size() == 2);
+    CHECK(minha_carteira.getTransacoes().size() == 3);
+}
+
+TEST_CASE("OUTPUT - informacoes da CarteiraBancaria") {
+    CarteiraBancaria minha_carteira = CarteiraBancaria("c1", 100);
+    minha_carteira.adicionarCartao("card1", "12345678901234", "001", "10", 200);
+    minha_carteira.adicionarDespesa(1, "10/10/2010", "c1");
+    minha_carteira.adicionarDespesaCartao("card1", 10, "10/10/2010", "c1");
+    minha_carteira.adicionarDespesaCartao("card1", 90, "11/10/2010", "c1");
+    minha_carteira.imprimirInfo();
+
+    SUBCASE("Saldo menor ou igual a zero") {
+        minha_carteira.adicionarDespesa(99, "10/10/2010", "c1");
+        minha_carteira.imprimirInfo();
+    }
 }

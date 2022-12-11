@@ -1,6 +1,8 @@
 #include "doctest.h"
 #include "Carteira.hpp"
 
+#define BIG_NUMBER 1000000000000000000
+
 // Variaveis do tipo receita com o nome "aux_id" sao usadas para saber qual o ID das ultimas
 // transacoes
 
@@ -10,6 +12,10 @@ TEST_CASE("Criar carteira com saldo inicial negativo (construtor 2 parametros)")
 
 TEST_CASE("Criar carteira com saldo inicial negativo (construtor 3 parametros)") {
     CHECK_THROWS_AS(Carteira("w1", -1, "t1"), ctrexcp::ValorInvalido);
+}
+
+TEST_CASE("Criar carteira com saldo inicial maior que o PIB mundial)") {
+    CHECK_THROWS_AS(Carteira("w1", BIG_NUMBER), ctrexcp::ValorInvalido);
 }
 
 TEST_CASE("Pegar subtipo da carteira") {
@@ -145,4 +151,15 @@ TEST_CASE("Pegar uma transacao") {
     auto aux_id = Receita("w1", 1, "10/10/2010", "c1");
     int ultimo_id = aux_id.getID();
     CHECK(wallet.getTransacao(ultimo_id - 2)->getValor() == 30);
+}
+
+TEST_CASE("OUTPUT - informacoes da carteira") {
+    Carteira wallet = Carteira("w1", 100);
+    wallet.adicionarDespesa(20, "10/10/2010", "c1");
+    wallet.imprimirInfo();
+    
+    SUBCASE("Saldo menor ou igual a 0") {
+        wallet.adicionarDespesa(80, "10/10/2010", "c1");
+        wallet.imprimirInfo();
+    }
 }
