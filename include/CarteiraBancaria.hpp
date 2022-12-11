@@ -18,7 +18,7 @@ class CarteiraBancaria : public Carteira {
 
         ~CarteiraBancaria();
 
-        void adicionarCartao(CartaoDeCredito cartao);
+        void adicionarCartao(std::string nome, std::string numero, std::string CVV, std::string fechamento, double limite);
 
         void removerCartao(std::string nome);
 

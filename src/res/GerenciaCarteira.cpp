@@ -129,8 +129,7 @@ void GerenciaCarteira::adicionarCartao(std::string carteira, std::string nome, s
         std::shared_ptr<CarteiraBancaria> carteira_bancaria;
         carteira_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(minha_carteira);
 
-        CartaoDeCredito cartao_de_credito(nome, numero, CVV, fechamento, limite_cartao);
-        carteira_bancaria->adicionarCartao(cartao_de_credito);
+        carteira_bancaria->adicionarCartao(nome, numero, CVV, fechamento, limite_cartao);
     } 
     else {
         throw ctrexcp::ContaNaoPermiteCartao(carteira, minha_carteira->getSubtipo());
