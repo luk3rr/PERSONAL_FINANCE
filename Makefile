@@ -44,11 +44,13 @@ TEST_DEPENDENCIES = \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/Utils.o \
 	$(BUILD_DIR)/CarteiraExcp.o \
+	$(BUILD_DIR)/CarteiraBancaria.o \
 	$(BUILD_DIR)/ValidarEntrada.o \
 	
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/main_test.o 
 
 all: $(BUILD_DIR)/$(NAME)
