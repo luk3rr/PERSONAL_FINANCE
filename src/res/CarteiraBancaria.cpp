@@ -3,35 +3,48 @@
 CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
                                    : Carteira(nome, saldo_inicial, "CarteiraBancaria") {}
 
-void CarteiraBancaria::adicionarCartao(std::string nome, std::string numero, std::string CVV, std::string fechamento, double limite) {
-    if (this->_cartoes.find(nome) == this->_cartoes.end()) {
-        CartaoDeCredito novo_cartao = CartaoDeCredito(nome, numero, CVV, fechamento, limite);
-        _cartoes.insert(std::pair<std::string, CartaoDeCredito>(nome, novo_cartao));
-    }
-    else {
-        throw cdcexcp::CartaoJaExiste(nome);
-    }
-}
-
 CarteiraBancaria::~CarteiraBancaria() {}
 
-void CarteiraBancaria::removerCartao(std::string nome) {
-    if (this->_cartoes.find(nome) == this->_cartoes.end()){
-        throw cdcexcp::CartaoNaoEncontrado(nome);
-    }
-    getCartoes().erase(getCartoes().find(nome));
-}
+// ------------------------------------------- Metodos get/set ---------------------------------------------------------
 
 std::map<std::string, CartaoDeCredito> &CarteiraBancaria::getCartoes() {
     return this->_cartoes;
 }
 
 CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
-    if (getCartoes().find(nome) == getCartoes().end()) {
+    if (this->_cartoes.find(nome) == this->_cartoes.end()) {
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
     return &getCartoes().find(nome)->second;
 }
+
+// --------------------------------------- ADD/RM cartao de credito ----------------------------------------------------
+
+void CarteiraBancaria::adicionarCartao(std::string nome, std::string numero, std::string CVV, std::string fechamento, double limite) {
+    if (this->_cartoes.find(nome) == this->_cartoes.end()) {
+        CartaoDeCredito novo_cartao = CartaoDeCredito(nome, numero, CVV, fechamento, limite);
+        this->_cartoes.insert(std::pair<std::string, CartaoDeCredito>(nome, novo_cartao));
+    }
+    else {
+        throw cdcexcp::CartaoJaExiste(nome);
+    }
+}
+
+void CarteiraBancaria::removerCartao(std::string nome) {
+    this->getCartoes().erase(this->getCartaoDeCredito(nome)->getNome());
+}
+
+// ----------------------------------- ADD/RM despesa cartao de credito ------------------------------------------------
+
+void CarteiraBancaria::adicionarDespesaCartao(std::string nome_cartao, double valor, std::string data, std::string categoria) {
+    this->getCartaoDeCredito(nome_cartao)->adicionarDespesa(valor, data, categoria);
+}
+
+void CarteiraBancaria::removerDespesaCartao(std::string nome_cartao, unsigned id) {
+    this->getCartaoDeCredito(nome_cartao)->removerDespesa(id);
+}
+
+// ------------------------------------ Pagar fatura cartao de credito -------------------------------------------------
 
 void CarteiraBancaria::pagarFatura(std::string cartao) {
     CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
@@ -48,6 +61,8 @@ void CarteiraBancaria::pagarFatura(std::string cartao) {
     }
     despesas_cartao.clear();
 }
+
+// ---------------------------------------- Metodos de impressao -------------------------------------------------------
 
 void CarteiraBancaria::imprimirInfo() {
     const std::string separador = "___________________________________________";

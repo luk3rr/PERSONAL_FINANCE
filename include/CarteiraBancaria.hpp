@@ -1,5 +1,5 @@
-#ifndef CONTA_BANCARIA_H
-#define CONTA_BANCARIA_H
+#ifndef CARTEIRA_BANCARIA_H
+#define CARTEIRA_BANCARIA_H
 
 #include "Carteira.hpp"
 #include "CartaoDeCredito.hpp"
@@ -22,6 +22,10 @@ class CarteiraBancaria : public Carteira {
 
         void removerCartao(std::string nome);
 
+        void adicionarDespesaCartao(std::string nome_cartao, double valor, std::string data, std::string categoria);
+
+        void removerDespesaCartao(std::string nome_cartao, unsigned id);
+
         std::map<std::string, CartaoDeCredito> &getCartoes();
 
         CartaoDeCredito *getCartaoDeCredito(std::string nome);
@@ -33,4 +37,4 @@ class CarteiraBancaria : public Carteira {
         void imprimirCartoes();
 };
 
-#endif
+#endif // !CARTEIRA_BANCARIA_H
